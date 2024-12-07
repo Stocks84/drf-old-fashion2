@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-wp!os-c@oy#vyd!w&ei9gp2k(b)cgax&se*qo8ffyvug+h6lp&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-stocks84-drfoldfashion2-7aq5i9ljro3.ws.codeinstitute-ide.net']
+ALLOWED_HOSTS = ['8000-stocks84-drfoldfashion2-727ypyuyt1t.ws.codeinstitute-ide.net']
 
 
 # Application definition
@@ -78,10 +79,15 @@ WSGI_APPLICATION = 'drf_old_fashion2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'drf-old-fashion2',
+        'USER': 'postgres',
+        'PASSWORD': 'u36SUqruly6JKP3El3AM',
+        'HOST': 'drf-old-fashion2.c3esg8kiib4i.eu-north-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation
