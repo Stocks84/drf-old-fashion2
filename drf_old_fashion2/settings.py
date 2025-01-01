@@ -29,6 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['8000-stocks84-drfoldfashion2-727ypyuyt1t.ws.codeinstitute-ide.net']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-stocks84-drfoldfashion2-727ypyuyt1t.ws.codeinstitute-ide.net',
+]
 
 # Application definition
 
