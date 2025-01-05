@@ -7,7 +7,7 @@ from .models import UserProfile
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     # Create a Profile for new users
     if created:
-        Profile.objects.create(user=instance)
+        UserProfile.objects.create(user=instance)
     else:
         # Save Profile for existing users
         instance.profile.save()
