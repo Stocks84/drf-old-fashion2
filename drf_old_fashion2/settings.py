@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-wp!os-c@oy#vyd!w&ei9gp2k(b)cgax&se*qo8ffyvug+h6lp&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-stocks84-drfoldfashion2-727ypyuyt1t.ws.codeinstitute-ide.net', 
     'https://drf-old-fashion2-89d0730feda0.herokuapp.com/']
