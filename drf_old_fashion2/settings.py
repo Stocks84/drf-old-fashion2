@@ -29,7 +29,8 @@ SECRET_KEY = 'django-insecure-wp!os-c@oy#vyd!w&ei9gp2k(b)cgax&se*qo8ffyvug+h6lp&
 DEBUG = True
 
 ALLOWED_HOSTS = ['8000-stocks84-drfoldfashion2-727ypyuyt1t.ws.codeinstitute-ide.net', 
-    'https://drf-old-fashion2-89d0730feda0.herokuapp.com/']
+    'https://drf-old-fashion2-89d0730feda0.herokuapp.com',
+    ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-stocks84-drfoldfashion2-727ypyuyt1t.ws.codeinstitute-ide.net',
