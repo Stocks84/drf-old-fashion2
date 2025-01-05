@@ -31,8 +31,11 @@ DEBUG = True
 ALLOWED_HOSTS = ['8000-stocks84-drfoldfashion2-727ypyuyt1t.ws.codeinstitute-ide.net', 'drf-old-fashion2-89d0730feda0.herokuapp.com']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-stocks84-drfoldfashion2-727ypyuyt1t.ws.codeinstitute-ide.net',
+    'https://8000-stocks84-drfoldfashion2-727ypyuyt1t.ws.codeinstitute-ide.net', 'https://drf-old-fashion2-89d0730feda0.herokuapp.com'
 ]
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # Application definition
 
