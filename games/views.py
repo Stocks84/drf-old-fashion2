@@ -25,12 +25,24 @@ class LikeCreateView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 class CommentListCreateView(generics.ListCreateAPIView):
-    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        game_id = self.kwargs.get("game_id")
+        try:
+            game = Game.objects.get(pk=game_id)
+        except Game.DoesNotExist:
+            raise NotFound("Game not found")
+        return game.comments.all()  # Fetch comments for this game
+
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        game_id = self.kwargs.get("game_id")
+        try:
+            game = Game.objects.get(pk=game_id)
+        except Game.DoesNotExist:
+            raise NotFound("Game not found")
+        serializer.save(user=self.request.user, game=game)
 
 class GameRecentView(APIView):
     def get(self, request):
