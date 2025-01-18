@@ -1,3 +1,4 @@
+from rest_framework.views import APIView
 from rest_framework import generics, permissions
 from .models import Game, Like, Comment
 from .serializers import GameSerializer, LikeSerializer, CommentSerializer
@@ -30,3 +31,9 @@ class CommentListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class GameRecentView(APIView):
+    def get(self, request):
+        recent_games = Game.objects.order_by('-created_at')[:5]
+        serializer = GameSerializer(recent_games, many=True)
+        return Response(serializer.data)

@@ -6,4 +6,5 @@ urlpatterns = [
     path('games/<int:pk>/', GameDetailView.as_view(), name='game-detail'),
     path('games/<int:pk>/like/', LikeCreateView.as_view(), name='game-like'),
     path('games/<int:pk>/comments/', CommentListCreateView.as_view(), name='game-comments'),
+    path('recent/', GameRecentView.as_view(), name='game-recent'),
 ]
