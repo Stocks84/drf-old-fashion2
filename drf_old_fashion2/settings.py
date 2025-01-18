@@ -69,7 +69,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://localhost:3000", # React development server
-    "https:// .herokuapp.com" #Heroku backend
+    "https://drf-old-fashion2-89d0730feda0.herokuapp.com/" #Heroku backend
 ]
 
 ROOT_URLCONF = 'drf_old_fashion2.urls'
