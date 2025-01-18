@@ -1,7 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework import generics, permissions
+from rest_framework.response import Response
 from .models import Game, Like, Comment
 from .serializers import GameSerializer, LikeSerializer, CommentSerializer
+from rest_framework.exceptions import NotFound
 
 class GameListCreateView(generics.ListCreateAPIView):
     queryset = Game.objects.all()
@@ -45,7 +47,10 @@ class CommentListCreateView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user, game=game)
 
 class GameRecentView(APIView):
-    def get(self, request):
-        recent_games = Game.objects.order_by('-created_at')[:5]
+    """
+    View to list the most recent games.
+    """
+    def get(self, request, *args, **kwargs):
+        recent_games = Game.objects.order_by('-created_at')[:10]  # Fetch the 10 most recent games
         serializer = GameSerializer(recent_games, many=True)
         return Response(serializer.data)
