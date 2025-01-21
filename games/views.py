@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework import generics, permissions
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from .models import Game, Like, Comment
 from .serializers import GameSerializer, LikeSerializer, CommentSerializer
 from rest_framework.exceptions import NotFound
@@ -50,7 +51,12 @@ class GameRecentView(APIView):
     """
     View to list the most recent games.
     """
-    def get(self, request, *args, **kwargs):
-        recent_games = Game.objects.order_by('-created_at')[:10]  # Fetch the 10 most recent games
-        serializer = GameSerializer(recent_games, many=True)
-        return Response(serializer.data)
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            recent_games = Game.objects.order_by('-created_at')[:10]  # Fetch recent games
+            serializer = GameSerializer(recent_games, many=True)
+            return Response(serializer.data, status=200)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)  # Return error details
