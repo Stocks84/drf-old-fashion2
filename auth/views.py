@@ -16,16 +16,30 @@ class LogoutView(APIView):
             return Response({"detail": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST)
 
 class SignupView(APIView):
+    permission_classes = [AllowAny]  # Allow anyone to access this view
+
     def post(self, request):
         username = request.data.get('username')
         email = request.data.get('email')
         password = request.data.get('password')
 
+        # Validate input
         if not username or not email or not password:
             return Response({"error": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Check if username already exists
         if User.objects.filter(username=username).exists():
-            return Response({"error": "Username already exists"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Username already taken"}, status=status.HTTP_400_BAD_REQUEST)
 
-        User.objects.create_user(username=username, email=email, password=password)
-        return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
+        # Check if email already exists
+        if User.objects.filter(email=email).exists():
+            return Response({"error": "Email already registered"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create the user
+        try:
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+            return Response({"detail": "User created successfully"}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"error": "An error occurred. Please try again."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
