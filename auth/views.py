@@ -10,6 +10,11 @@ from .serializers import UserLoginSerializer
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = UserLoginSerializer
 
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        # Handle response if needed (e.g., logging or modifying response data)
+        return response
+
 
 class LogoutView(APIView):
     def post(self, request):
