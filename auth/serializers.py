@@ -39,7 +39,8 @@ class UserSignupSerializer(serializers.ModelSerializer):
             )
         except Exception as e:
             raise serializers.ValidationError({"detail": str(e)})
-    return user
+    
+        return user
 
 class UserLoginSerializer(serializers.Serializer):
     """
