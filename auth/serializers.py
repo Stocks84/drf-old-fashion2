@@ -31,12 +31,15 @@ class UserSignupSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('confirm_password')
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            password=validated_data['password'],
-        )
-        return user
+        try:
+            user = User.objects.create_user(
+                username=validated_data['username'],
+                email=validated_data['email'],
+                password=validated_data['password'],
+            )
+        except Exception as e:
+            raise serializers.ValidationError({"detail": str(e)})
+    return user
 
 class UserLoginSerializer(serializers.Serializer):
     """

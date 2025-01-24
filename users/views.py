@@ -11,11 +11,18 @@ class UserDetailView(APIView):
 
     def get(self, request, user_id):
         try:
-            user = User.objects.get(pk=user_id)
+            # Get the User object by user_id
+            user = User.objects.get(id=user_id)
         except User.DoesNotExist:
             return Response({"error": "User not found"}, status=404)
+        
+        # Check if the User has a UserProfile
+        try:
+            profile = UserProfile.objects.get(user=user)
+        except UserProfile.DoesNotExist:
+            return Response({"error": "UserProfile not found"}, status=404)
 
-        profile = UserProfile.objects.get(user=user)
+        # Serialize the profile and return it
         profile_data = UserProfileSerializer(profile).data
 
         return Response({
