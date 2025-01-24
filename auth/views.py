@@ -13,7 +13,10 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         # Handle response if needed (e.g., logging or modifying response data)
-        return response
+        return Response({
+            'access': response.data.get('access'),
+            'refresh': response.data.get('refresh'),
+        })
 
 
 class LogoutView(APIView):
@@ -27,15 +30,13 @@ class LogoutView(APIView):
             return Response({"detail": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST)
 
 class SignupView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny]  # Allow unauthenticated access
 
     def post(self, request):
         serializer = UserSignupSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({"detail": "User created successfully."}, status=status.HTTP_201_CREATED)
-        else:
-        # Return error messages if validation fails
-            print("Validation errors: ", serializer.errors) 
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
