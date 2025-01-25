@@ -16,14 +16,20 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
+
         if response.status_code == status.HTTP_200_OK:
             # Ensure that the response contains the correct token data
             access_token = response.data.get('access')
             refresh_token = response.data.get('refresh')
+
+            if not access_token or not refresh_token:
+                return Response({'detail': 'Tokens not generated'}, status=status.HTTP_400_BAD_REQUEST)
+
             return Response({
                 'access': access_token,
                 'refresh': refresh_token
             }, status=status.HTTP_200_OK)
+            
         return response
 
 
