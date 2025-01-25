@@ -10,10 +10,6 @@ from .serializers import UserLoginSerializer, UserSignupSerializer
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = UserLoginSerializer
 
-
-class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = UserLoginSerializer
-
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
 
@@ -29,7 +25,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 'access': access_token,
                 'refresh': refresh_token
             }, status=status.HTTP_200_OK)
-            
+
         return response
 
 
