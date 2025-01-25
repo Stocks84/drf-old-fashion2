@@ -10,16 +10,22 @@ from .serializers import UserLoginSerializer, UserSignupSerializer
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = UserLoginSerializer
 
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = UserLoginSerializer
+
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-        # Handle response if needed (e.g., logging or modifying response data)
-        if 'access' in response.data and 'refresh' in response.data:
+        if response.status_code == status.HTTP_200_OK:
+            # Ensure that the response contains the correct token data
+            access_token = response.data.get('access')
+            refresh_token = response.data.get('refresh')
             return Response({
-                'access': response.data.get('access'),
-                'refresh': response.data.get('refresh'),
-            })
-        else:
-            return Response({"detail": "Tokens not generated"}, status=400)
+                'access': access_token,
+                'refresh': refresh_token
+            }, status=status.HTTP_200_OK)
+        return response
+
 
 
 
