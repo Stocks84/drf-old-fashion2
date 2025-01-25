@@ -13,6 +13,9 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         # Handle response if needed (e.g., logging or modifying response data)
+        access_token = response.data.get('access')
+        refresh_token = response.data.get('refresh')
+        
         return Response({
             'access': response.data.get('access'),
             'refresh': response.data.get('refresh'),
