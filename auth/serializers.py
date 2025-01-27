@@ -50,7 +50,7 @@ class UserLoginSerializer(serializers.Serializer):
         user = User.objects.filter(username=data['username']).first()
         if user and user.check_password(data['password']):
             print(f'User authenticated: {user}')
-            return user
+            return self.get_tokens(user)
         raise serializers.ValidationError({"detail": "Invalid credentials."})
 
     def get_tokens(self, user):
