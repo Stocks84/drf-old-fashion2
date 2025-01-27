@@ -12,6 +12,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
+        print(f'Response data: {response.data}')
 
         if response.status_code == status.HTTP_200_OK:
             # Ensure that the response contains the correct token data

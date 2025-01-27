@@ -49,6 +49,7 @@ class UserLoginSerializer(serializers.Serializer):
     def validate(self, data):
         user = User.objects.filter(username=data['username']).first()
         if user and user.check_password(data['password']):
+            print(f'User authenticated: {user}')
             return user
         raise serializers.ValidationError({"detail": "Invalid credentials."})
 
