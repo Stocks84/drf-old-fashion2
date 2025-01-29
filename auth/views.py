@@ -18,6 +18,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             # Ensure that the response contains the correct token data
             access_token = response.data.get('access')
             refresh_token = response.data.get('refresh')
+            user = request.user
 
             if not access_token or not refresh_token:
                 return Response({'detail': 'Tokens not generated'}, status=status.HTTP_400_BAD_REQUEST)
@@ -25,6 +26,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             return Response({
                 'access': access_token,
                 'refresh': refresh_token
+                'userId': user.id,
             }, status=status.HTTP_200_OK)
 
         return response
