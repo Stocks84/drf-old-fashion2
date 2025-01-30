@@ -25,7 +25,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
             return Response({
                 'access': access_token,
-                'refresh': refresh_token
+                'refresh': refresh_token,
                 'userId': user.id,
             }, status=status.HTTP_200_OK)
 
